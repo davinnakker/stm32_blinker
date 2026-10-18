@@ -1,0 +1,187 @@
+
+Discarded input sections
+
+ .text          0x00000000        0x0 build/main.o
+ .data          0x00000000        0x0 build/main.o
+ .bss           0x00000000        0x0 build/main.o
+ .bss.flash_acr
+                0x00000000        0x4 build/main.o
+ .text          0x00000000        0x0 build/startup.o
+ .data          0x00000000        0x0 build/startup.o
+ .bss           0x00000000        0x0 build/startup.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00080000         xr
+RAM              0x20000000         0x00020000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD build/main.o
+LOAD build/startup.o
+LOAD /usr/lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp/libgcc.a
+                0x20020000                        _estack = (ORIGIN (RAM) + LENGTH (RAM))
+
+.isr_vector     0x08000000       0x40
+                0x08000000                        . = ALIGN (0x4)
+ *(.isr_vector)
+ .isr_vector    0x08000000       0x40 build/startup.o
+                0x08000040                        . = ALIGN (0x4)
+
+.text           0x08000040      0x144
+                0x08000040                        . = ALIGN (0x4)
+ *(.text*)
+ .text._Z13enable_port_av
+                0x08000040       0x14 build/main.o
+                0x08000040                enable_port_a()
+ .text._Z14enable_timer_2v
+                0x08000054       0x14 build/main.o
+                0x08000054                enable_timer_2()
+ .text._Z17configure_timer_2v
+                0x08000068       0x20 build/main.o
+                0x08000068                configure_timer_2()
+ .text._Z7wait_msj
+                0x08000088       0x20 build/main.o
+                0x08000088                wait_ms(unsigned int)
+ .text._Z12set_pin_modeim
+                0x080000a8       0x28 build/main.o
+                0x080000a8                set_pin_mode(int, unsigned long)
+ .text._Z14drive_pin_highi
+                0x080000d0       0x10 build/main.o
+                0x080000d0                drive_pin_high(int)
+ .text._Z13drive_pin_lowi
+                0x080000e0       0x14 build/main.o
+                0x080000e0                drive_pin_low(int)
+ .text.main     0x080000f4       0x34 build/main.o
+                0x080000f4                main
+ .text.Default_Handler
+                0x08000128        0x2 build/startup.o
+                0x08000128                DebugMon_Handler
+                0x08000128                HardFault_Handler
+                0x08000128                SysTick_Handler
+                0x08000128                PendSV_Handler
+                0x08000128                NMI_Handler
+                0x08000128                UsageFault_Handler
+                0x08000128                Default_Handler
+                0x08000128                MemManage_Handler
+                0x08000128                SVC_Handler
+                0x08000128                BusFault_Handler
+ *fill*         0x0800012a        0x2 
+ .text.Reset_Handler
+                0x0800012c       0x58 build/startup.o
+                0x0800012c                Reset_Handler
+ *(.rodata*)
+                0x08000184                        . = ALIGN (0x4)
+
+.glue_7         0x08000184        0x0
+ .glue_7        0x08000184        0x0 linker stubs
+
+.glue_7t        0x08000184        0x0
+ .glue_7t       0x08000184        0x0 linker stubs
+
+.vfp11_veneer   0x08000184        0x0
+ .vfp11_veneer  0x08000184        0x0 linker stubs
+
+.v4_bx          0x08000184        0x0
+ .v4_bx         0x08000184        0x0 linker stubs
+
+.iplt           0x08000184        0x0
+ .iplt          0x08000184        0x0 build/main.o
+
+.rel.dyn        0x08000184        0x0
+ .rel.iplt      0x08000184        0x0 build/main.o
+
+.init_array     0x08000184        0x0
+                0x08000184                        . = ALIGN (0x4)
+                0x08000184                        __init_array_start = .
+ *(SORT_BY_NAME(.init_array.*))
+ *(.init_array)
+                0x08000184                        __init_array_end = .
+                0x08000184                        . = ALIGN (0x4)
+                0x08000184                        _sidata = LOADADDR (.data)
+
+.data           0x20000000        0xc load address 0x08000184
+                0x20000000                        . = ALIGN (0x4)
+                0x20000000                        _sdata = .
+ *(.data*)
+ .data.timer2   0x20000000        0x4 build/main.o
+                0x20000000                timer2
+ .data.porta    0x20000004        0x4 build/main.o
+                0x20000004                porta
+ .data.rcc      0x20000008        0x4 build/main.o
+                0x20000008                rcc
+                0x2000000c                        . = ALIGN (0x4)
+                0x2000000c                        _edata = .
+
+.igot.plt       0x2000000c        0x0 load address 0x08000190
+ .igot.plt      0x2000000c        0x0 build/main.o
+
+.bss            0x2000000c        0x0 load address 0x08000190
+                0x2000000c                        . = ALIGN (0x4)
+                0x2000000c                        _sbss = .
+ *(.bss*)
+ *(COMMON)
+                0x2000000c                        . = ALIGN (0x4)
+                0x2000000c                        _ebss = .
+
+/DISCARD/
+ *(.ARM.exidx*)
+ *(.ARM.extab*)
+ *(.eh_frame*)
+OUTPUT(build/blink.elf elf32-littlearm)
+LOAD linker stubs
+
+.debug_info     0x00000000      0x7f7
+ .debug_info    0x00000000      0x64f build/main.o
+ .debug_info    0x0000064f      0x1a8 build/startup.o
+
+.debug_abbrev   0x00000000      0x2d6
+ .debug_abbrev  0x00000000      0x1df build/main.o
+ .debug_abbrev  0x000001df       0xf7 build/startup.o
+
+.debug_loclists
+                0x00000000      0x108
+ .debug_loclists
+                0x00000000       0x8e build/main.o
+ .debug_loclists
+                0x0000008e       0x7a build/startup.o
+
+.debug_aranges  0x00000000       0x80
+ .debug_aranges
+                0x00000000       0x58 build/main.o
+ .debug_aranges
+                0x00000058       0x28 build/startup.o
+
+.debug_rnglists
+                0x00000000       0x56
+ .debug_rnglists
+                0x00000000       0x3d build/main.o
+ .debug_rnglists
+                0x0000003d       0x19 build/startup.o
+
+.debug_line     0x00000000      0x36a
+ .debug_line    0x00000000      0x282 build/main.o
+ .debug_line    0x00000282       0xe8 build/startup.o
+
+.debug_str      0x00000000      0x4b5
+ .debug_str     0x00000000      0x4b5 build/main.o
+                                0x49b (size before relaxing)
+ .debug_str     0x000004b5      0x1e4 build/startup.o
+
+.comment        0x00000000       0x26
+ .comment       0x00000000       0x26 build/main.o
+                                 0x27 (size before relaxing)
+ .comment       0x00000026       0x27 build/startup.o
+
+.ARM.attributes
+                0x00000000       0x2e
+ .ARM.attributes
+                0x00000000       0x2e build/main.o
+ .ARM.attributes
+                0x0000002e       0x2e build/startup.o
+
+.debug_frame    0x00000000       0xe8
+ .debug_frame   0x00000000       0xb0 build/main.o
+ .debug_frame   0x000000b0       0x38 build/startup.o
