@@ -20,8 +20,8 @@ The purpose of building this software was to get comfortable with how software i
 
 # Useful Websites
 
-- STM32 F446RE Datasheet(https://www.st.com/en/microcontrollers-microprocessors/)
-- STM32 F446RE Reference Manual(https://www.st.com/en/microcontrollers-microprocessors/)
+- [STM32 F446RE Datasheet](https://www.st.com/en/microcontrollers-microprocessors/)
+- [STM32 F446RE Reference Manual](https://www.st.com/en/microcontrollers-microprocessors/)
 
 # Future Work
 
